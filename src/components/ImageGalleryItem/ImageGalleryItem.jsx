@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import { GalleryItem, Image } from './ImageGalleryItem.styled';
 
-export default class ImageGalleryItem extends Component {
-  render() {
-    return;
-    <li class="gallery-item">
-      <img src="" alt="" />
-    </li>;
-  }
+function ImageGalleryItem({ imageURL, alt, selectedItem }) {
+  return (
+    <GalleryItem class="gallery-item">
+      <Image src={imageURL} alt={alt} onClick={selectedItem} />
+    </GalleryItem>
+  );
 }
+export default ImageGalleryItem;

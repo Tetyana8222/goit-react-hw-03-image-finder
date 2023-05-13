@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
+import { Header, SearchField, SearchButton } from './SearchBar.styled';
+import { FiSearch } from 'react-icons/fi';
 // import PropTypes from 'prop-types';
 
 export default class SearchBar extends Component {
@@ -7,33 +9,38 @@ export default class SearchBar extends Component {
     searchQuery: '',
   };
 
-  handleSubmitForm(event) {
+  handleQueryChange = event => {
+    this.setState({ searchQuery: event.currentTarget.value.toLowerCase() });
+  };
+
+  handleSubmit = event => {
     event.preventDefault();
-    if (this.state.searchQuery.trim() === '') {
-      toast.error('Please enter something');
-      return;
-    }
+    // if (this.state.searchQuery.trim() === '') {
+    //   toast.error('Please enter something');
+    //   return;
+    // }
     this.props.onSubmit(this.state.searchQuery);
     this.setState({ searchQuery: '' });
-  }
+  };
 
   render() {
     return (
-      <header class="searchbar">
-        <form class="form" onSubmit={this.handleSubmitForm}>
-          <input
-            class="input"
+      <Header>
+        <form onSubmit={this.handleSubmit}>
+          <SearchField
             type="text"
             name="searchQuery"
-            autocomplete="off"
-            autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
+            value={this.state.searchQuery}
+            onChange={this.handleQueryChange}
           />
-          <button type="submit" class="button">
-            <span class="button-label">Search</span>
-          </button>
+          <SearchButton type="submit">
+            <FiSearch style={{ marginRight: 8 }} />
+          </SearchButton>
         </form>
-      </header>
+      </Header>
     );
   }
 }
