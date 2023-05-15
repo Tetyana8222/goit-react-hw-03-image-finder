@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import { ToastContainer, toast } from 'react-toastify';
 import { Container } from './App.styled';
@@ -9,7 +8,6 @@ import Spinner from './Loader/Loader';
 import Modal from './Modal/Modal';
 import LoadMoreButton from './Button/Button';
 import fetchApi from '../components/service/ApiService';
-import ErrorSearch from './SearchError';
 
 export class App extends Component {
   state = {
@@ -95,7 +93,7 @@ export class App extends Component {
   };
 
   render() {
-    const { images, page, alt, status, showModal, error } = this.state;
+    const { images, status, error } = this.state;
     return (
       <Container>
         <SearchBar onSubmit={this.handleSubmitForm} />
