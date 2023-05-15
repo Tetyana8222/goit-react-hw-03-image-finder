@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Header, SearchField, SearchButton } from './SearchBar.styled';
+import { Header, Form, SearchField, SearchButton } from './SearchBar.styled';
 import { FiSearch } from 'react-icons/fi';
-// import PropTypes from 'prop-types';
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   state = {
     searchQuery: '',
   };
@@ -27,7 +27,7 @@ export default class SearchBar extends Component {
   render() {
     return (
       <Header>
-        <form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit}>
           <SearchButton type="submit">
             <FiSearch style={{ marginRight: 8 }} />
           </SearchButton>
@@ -40,8 +40,13 @@ export default class SearchBar extends Component {
             value={this.state.searchQuery}
             onChange={this.handleQueryChange}
           />
-        </form>
+        </Form>
       </Header>
     );
   }
 }
+export default SearchBar;
+
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

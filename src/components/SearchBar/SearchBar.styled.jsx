@@ -1,40 +1,36 @@
 import styled from '@emotion/styled';
 
-export const Header = styled.header`
+export const Header = styled.header``;
+
+export const Form = styled.form`
+  font: inherit;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 520px;
+  width: 100%;
+  margin: 16px auto;
+  display: flex;
+  justify-content: center;
   background-color: #37b2d9;
   border: none;
-  border-radius: 30px;
-  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 20px 20px;
-  margin-left: 10px;
-
-  &:hover {
-    background-color: #4ec4e6;
-  }
 `;
 
 export const SearchField = styled.input`
-  background-color: #fff;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  color: #333;
-  font-size: 16px;
-  padding: 10px;
-  width: 40%;
+  font: inherit;
+  max-width: 350px;
+  width: 100%;
+  border-radius: 5px;
+  margin: 16px auto;
+  padding: 12px;
+  display: block;
 `;
 
 export const SearchButton = styled.button`
-  background-color: #fff;
-  border: none;
-  /* width: 150px; */
-  border-radius: px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  color: #007bff;
-  cursor: pointer;
-  font-size: 20px;
-  padding: 8px 20px;
+  width: 100px;
+  height: 45px;
+  margin: auto;
+  font: inherit;
+  border-radius: 5px;
+  padding: 0;
 `;

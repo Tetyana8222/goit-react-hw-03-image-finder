@@ -1,4 +1,4 @@
-import { GalleryItem, Image } from './ImageGalleryItem.styled';
+import { GalleryItem, Thumb, Image } from './ImageGalleryItem.styled';
 import PropTypes from 'prop-types';
 
 import React, { Component } from 'react';
@@ -13,13 +13,20 @@ export default class ImageGalleryItem extends Component {
     const { alt, src } = this.props;
     return (
       <GalleryItem>
-        <Image src={src} alt={alt} loading="lazy" onClick={this.onImageClick} />
+        <Thumb>
+          <Image
+            src={src}
+            alt={alt}
+            loading="lazy"
+            onClick={this.onImageClick}
+          />
+        </Thumb>
       </GalleryItem>
     );
   }
 }
-// ImageGallery.propTypes = {
-//   alt: PropTypes.string.isRequired,
-//   previewURL: PropTypes.string.isRequired,
-//   // selectedImage: PropTypes.func,
-// };
+ImageGalleryItem.propTypes = {
+  updateImglink: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
+  largeImageURL: PropTypes.func.isRequired,
+};

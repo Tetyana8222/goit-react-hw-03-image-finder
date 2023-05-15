@@ -3,15 +3,15 @@ import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import { GalleryList } from './ImageGallery.styled';
 import PropTypes from 'prop-types';
 function ImageGallery({ images, openModal, updateImglink }) {
-  console.log('картинки з галереї', images);
+  // console.log('картинки з галереї', images);
   return (
     <GalleryList>
-      {images.map(({ id, previewURL, tags, largeImageURL }) => {
-        console.log(previewURL);
+      {images.map(({ id, webformatURL, tags, largeImageURL }) => {
+        // console.log(webformatURL);
         return (
           <ImageGalleryItem
             key={id}
-            src={previewURL}
+            src={webformatURL}
             alt={tags}
             largeImageURL={largeImageURL}
             openModal={openModal}
@@ -25,7 +25,8 @@ function ImageGallery({ images, openModal, updateImglink }) {
 
 export default ImageGallery;
 
-// ImageGallery.propTypes = {
-//   images: PropTypes.array.isRequired,
-//   selectedItem: PropTypes.func.isRequired,
-// };
+ImageGallery.propTypes = {
+  images: PropTypes.array.isRequired,
+  openModal: PropTypes.func.isRequired,
+  updateImglink: PropTypes.func.isRequired,
+};

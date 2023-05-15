@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import { ToastContainer, toast } from 'react-toastify';
-
-import ApiService from '../components/service/ApiService';
 import { Container } from './App.styled';
 import SearchBar from './SearchBar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -24,24 +22,32 @@ export class App extends Component {
     loading: false,
     showBtnLoadMore: false,
   };
-  //componentDidUpdate  буде викликатися після кожного фетча, якщо не буде перевірки
+
   async componentDidUpdate(prevProps, prevState) {
     const { page, searchQuery } = this.state;
-    try {
-      if (searchQuery !== prevState.searchQuery || page !== prevState.page) {
-        const imageData = await ApiService(searchQuery, page);
-        console.log(imageData);
-        this.setState(prevState => ({
-          images: [...prevState.images, ...imageData.hits],
+    if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
+      this.setState({ status: 'pending' });
+
+      try {
+        const imageData = await fetchApi(searchQuery, page);
+        this.totalHits = imageData.total;
+        const imagesHits = imageData.hits;
+        if (!imagesHits.length) {
+          toast.warning(
+            'No results for your search, please try something else.'
+          );
+        }
+        this.setState(({ images }) => ({
+          images: [...images, ...imagesHits],
+          status: 'resolved',
+          showBtnLoadMore: true,
         }));
-        // const imagesHits = imageData.hits;
+      } catch (error) {
+        toast.error(`Sorry something went wrong. ${error.message}`);
+        this.setState({ status: 'rejected' });
       }
-    } catch (error) {
-      toast.error(`Sorry something went wrong.`);
-      this.setState({ status: 'rejected' });
     }
   }
-  ///
   handleSubmitForm = searchQuery => {
     if (this.state.searchQuery === searchQuery) {
       return;
@@ -49,7 +55,6 @@ export class App extends Component {
     this.resetState();
     this.setState({ searchQuery });
   };
-  /////
 
   handleSelectedImage = (largeImageUrl, tags) => {
     this.setState({
@@ -87,27 +92,30 @@ export class App extends Component {
       page: prevState.page + 1,
     }));
   };
+
   render() {
     const { images, page, alt, status, showModal, error } = this.state;
     return (
       <Container>
         <SearchBar onSubmit={this.handleSubmitForm} />
-        <ToastContainer autoClose={3000} position="top-center" />
+        <ToastContainer autoClose={2000} position="top-center" />
         {status === 'pending' && <Spinner />}
-        {/* {status === 'rejected' && toast.error(`Sorry something went wrong.`)} */}
-        {this.state.images !== [] && (
+        {error && (
+          <h1 style={{ color: 'red', textAlign: 'center' }}>{error.message}</h1>
+        )}
+        {images.length !== [] && (
           <ImageGallery
             images={this.state.images}
             openModal={this.openModal}
             updateImglink={this.updateImglink}
           />
         )}
-        <LoadMoreButton onClick={this.loadMore} />
+        {images.length > 0 && images.length !== this.totalHits && (
+          <LoadMoreButton onClick={this.loadMore} />
+        )}
         {this.state.showModal && (
           <Modal onClose={this.closeModal} img={this.state.modalPicture} />
         )}
-
-        {/* {showModal && <ModalOverlay onClose={this.toggleModal}></ModalOverlay>} */}
       </Container>
     );
   }

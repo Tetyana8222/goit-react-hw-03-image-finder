@@ -1,19 +1,17 @@
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
 import { ModalOverlay, ModalContainer, Img } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
 class Modal extends Component {
   componentDidMount() {
-    console.log('Modal componentDidMount');
-
     window.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
-    console.log('Modal componentWillMount');
   }
 
   handleKeyDown = event => {
@@ -27,7 +25,6 @@ class Modal extends Component {
     }
   };
   handleClose = event => {
-    console.log(event.code);
     if (event.code === 'Escape') {
       this.props.onClose();
     }
@@ -39,7 +36,7 @@ class Modal extends Component {
   };
   render() {
     const { img, tags } = this.props;
-    console.log(img);
+
     return createPortal(
       <ModalOverlay onClick={this.handleBackdropClick}>
         <ModalContainer>
@@ -52,3 +49,8 @@ class Modal extends Component {
 }
 
 export default Modal;
+
+Modal.propTypes = {
+  img: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+};
