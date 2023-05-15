@@ -28,5 +28,5 @@ export default class ImageGalleryItem extends Component {
 ImageGalleryItem.propTypes = {
   updateImglink: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
-  largeImageURL: PropTypes.func.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
 };

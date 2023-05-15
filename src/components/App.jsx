@@ -9,6 +9,7 @@ import Spinner from './Loader/Loader';
 import Modal from './Modal/Modal';
 import LoadMoreButton from './Button/Button';
 import fetchApi from '../components/service/ApiService';
+import ErrorSearch from './SearchError';
 
 export class App extends Component {
   state = {
