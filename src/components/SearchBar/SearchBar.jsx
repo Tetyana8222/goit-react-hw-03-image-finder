@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Header, SearchField, SearchButton } from './SearchBar.styled';
 import { FiSearch } from 'react-icons/fi';
 // import PropTypes from 'prop-types';
@@ -8,17 +9,17 @@ export default class SearchBar extends Component {
   state = {
     searchQuery: '',
   };
-
   handleQueryChange = event => {
     this.setState({ searchQuery: event.currentTarget.value.toLowerCase() });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    // if (this.state.searchQuery.trim() === '') {
-    //   toast.error('Please enter something');
-    //   return;
-    // }
+    if (this.state.searchQuery.trim() === '') {
+      toast.error('Search field is empty');
+      this.setState({ searchQuery: '' });
+      return;
+    }
     this.props.onSubmit(this.state.searchQuery);
     this.setState({ searchQuery: '' });
   };
@@ -27,6 +28,9 @@ export default class SearchBar extends Component {
     return (
       <Header>
         <form onSubmit={this.handleSubmit}>
+          <SearchButton type="submit">
+            <FiSearch style={{ marginRight: 8 }} />
+          </SearchButton>
           <SearchField
             type="text"
             name="searchQuery"
@@ -36,9 +40,6 @@ export default class SearchBar extends Component {
             value={this.state.searchQuery}
             onChange={this.handleQueryChange}
           />
-          <SearchButton type="submit">
-            <FiSearch style={{ marginRight: 8 }} />
-          </SearchButton>
         </form>
       </Header>
     );

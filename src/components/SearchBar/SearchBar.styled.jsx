@@ -30,12 +30,11 @@ export const SearchField = styled.input`
 export const SearchButton = styled.button`
   background-color: #fff;
   border: none;
-  width: 150px;
-  border-radius: 10px;
+  /* width: 150px; */
+  border-radius: px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
   color: #007bff;
   cursor: pointer;
   font-size: 20px;
-  padding: 10px 20px;
-  margin-left: 10px;
+  padding: 8px 20px;
 `;
